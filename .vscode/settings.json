@@ -1,0 +1,6 @@
+{
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "Codegeex.Chat.LanguagePreference": "English",
+    "Codegeex.Comment.LanguagePreference": "English",
+    "Codegeex.SidebarUI.LanguagePreference": "English"
+}
