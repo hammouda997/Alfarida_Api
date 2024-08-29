@@ -1,17 +1,15 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { HttpService } from '@nestjs/axios'; // Correct import for HttpService
+import { AxiosResponse } from 'axios'; // Correct import for AxiosResponse
 import { PaymentResult } from 'src/interfaces';
 import { Order, OrderDocument } from '../schemas/order.schema';
-
 @Injectable()
 export class OrdersService {
   constructor(
-    @InjectModel(Order.name) private orderModel: Model<OrderDocument>
+    @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
+    private readonly httpService: HttpService 
   ) {}
 
   async create(
@@ -105,5 +103,19 @@ export class OrdersService {
     const orders = await this.orderModel.find({ user: userId });
 
     return orders;
+  }
+  async initPayment(paymentDetails: any): Promise<any> {
+    const url = 'https://api.preprod.konnect.network/api/v2/payments/init-payment';
+    const headers = {
+      'x-api-key': '66cf36312a3dbe14750b218f:AvpU6fxVaNVBWUqiA0',
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      const response: AxiosResponse<any> = await this.httpService.post(url, paymentDetails, { headers }).toPromise();
+      return response.data;
+    } catch (error) {
+      throw new BadRequestException(`Error initializing payment: ${error.message}`);
+    }
   }
 }

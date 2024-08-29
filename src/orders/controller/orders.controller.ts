@@ -15,8 +15,10 @@ import { OrdersService } from '../services/orders.service';
 @Controller('orders')
 export class OrdersController {
   constructor(private ordersService: OrdersService) {}
-
-  @UseGuards(AdminGuard)
+  @Post('init-payment')
+  async initPayment(@Body() paymentDetails: any) {
+    return this.ordersService.initPayment(paymentDetails);
+  }
   @Post()
   async createOrder(@Body() body: any, @Session() session: any) {
     return this.ordersService.create(body, session.user._id);
@@ -48,7 +50,7 @@ export class OrdersController {
   ) {
     return this.ordersService.updatePaid(id, paymentResult);
   }
-
+  
   @UseGuards(AdminGuard)
   @Put(':id/deliver')
   async updateOrderDelivery(@Param('id') id: string) {
