@@ -16,7 +16,6 @@ import { OrdersService } from '../services/orders.service';
 export class OrdersController {
   constructor(private ordersService: OrdersService) {}
 
-  @UseGuards(AdminGuard)
   @Post()
   async createOrder(@Body() body: any, @Session() session: any) {
     return this.ordersService.create(body, session.user._id);

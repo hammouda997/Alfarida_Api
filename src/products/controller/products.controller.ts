@@ -57,6 +57,11 @@ export class ProductsController {
   getProduct(@Param('id') id: string) {
     return this.productsService.findById(id);
   }
+  @Get('categorie/:categorie')
+getProductByCategorie(@Param('categorie') categorie: string) {
+  return this.productsService.findByCategorie(categorie);
+}
+
 
   @UseGuards(AdminGuard)
   @Delete(':id')

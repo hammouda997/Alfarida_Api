@@ -79,6 +79,20 @@ export class ProductsService {
 
     return product;
   }
+  async findByCategorie(category: string): Promise<ProductDocument[]> {
+    if (!category) {
+      throw new BadRequestException('Category must be provided.');
+    }
+  
+    const products = await this.productModel.find({ category: { $regex: category, $options: 'i' } });
+  
+    if (!products.length) {
+      throw new NotFoundException(`No products found for category: ${category}`);
+    }
+  
+    return products;
+  }
+  
 
   async createMany(
     products: Partial<ProductDocument>[]
