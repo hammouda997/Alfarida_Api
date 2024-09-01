@@ -128,28 +128,41 @@ export class UsersService {
   ): Promise<UserDocument> {
     if (!Types.ObjectId.isValid(id))
       throw new BadRequestException('Invalid user ID.');
-
+  
     const user = await this.userModel.findById(id);
-
+  
     if (!user) throw new NotFoundException('User not found.');
-
+  
     const existingUser = await this.findOne(attrs.email);
-
+  
     if (existingUser && existingUser.email !== user.email)
       throw new BadRequestException('Email is already in use.');
-
+  
     user.firstname = attrs.firstname || user.firstname;
     user.lastname = attrs.lastname || user.lastname;
     user.email = attrs.email || user.email;
     user.phone = attrs.phone || user.phone;
-    if (attrs.password) {
+    if (attrs.dateOfBirth) {
+      user.dateOfBirth = attrs.dateOfBirth;
+    }
+        if (attrs.password) {
       user.password = await encryptPassword(attrs.password);
     }
-
+    if (attrs.addressBook) {
+      user.addressBook = attrs.addressBook.map(item => ({
+        ...item,
+        address: item.address || '', // Ensure all required fields are provided
+        city: item.city || '',
+        postalCode: item.postalCode || '',
+        country: item.country || '',
+      }));
+    }
+  
     const updatedUser = await user.save();
-
+  
     return updatedUser;
   }
+  
 
   async adminUpdate(id: string, attrs: Partial<UserDocument>) {
     if (!Types.ObjectId.isValid(id))

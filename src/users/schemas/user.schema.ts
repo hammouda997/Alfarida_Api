@@ -8,9 +8,12 @@ export type UserDocument = User & Document;
 @Schema({ timestamps: true })
 export class User {
   @Prop({ required: false })
+  dateOfBirth: Date;
+  @Prop({ required: false })
   lastname: string;
   @Prop ({required : false  , unique : false })
   firstname: string;
+
 
 
   @Prop({ required: true, unique: true })
@@ -28,8 +31,6 @@ export class User {
   @Prop({ required: false })
   gender: string;
 
-  @Prop({ required: false })
-  dateOfBirth: Date;
   @Prop({ required: true })
   password: string;
   @Prop({ required: true, default: true })

@@ -19,6 +19,13 @@ export class OrdersController {
   async initPayment(@Body() paymentDetails: any) {
     return this.ordersService.initPayment(paymentDetails);
   }
+  @UseGuards(AuthGuards)
+  @Get('myorders')
+  async getUserOrders(@Session() session: any) {
+    console.log('User ID:', session.user._id); 
+    const userId = session.user._id ; 
+    return this.ordersService.findUserOrders(userId);
+  }
   @Post()
   async createOrder(@Body() body: any, @Session() session: any) {
     return this.ordersService.create(body, session.user._id);
@@ -30,12 +37,8 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
-  @UseGuards(AuthGuards)
-  @Get('myorders')
-  async getUserOrders(@Session() session: any) {
-    return this.ordersService.findUserOrders(session.user._id);
-  }
-
+ 
+  
   @UseGuards(AuthGuards)
   @Get(':id')
   async getOrder(@Param('id') id: string) {

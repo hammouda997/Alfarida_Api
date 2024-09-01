@@ -100,10 +100,19 @@ export class OrdersService {
   }
 
   async findUserOrders(userId: string) {
+    if (!userId ) {
+      throw new BadRequestException('Invalid user ID.');
+    }
+  
     const orders = await this.orderModel.find({ user: userId });
-
     return orders;
   }
+  
+  private isValidId(id: string): boolean {
+    // Add logic to validate ID format (e.g., check if it’s a valid MongoDB ObjectId)
+    return true; // Replace with actual validation logic
+  }
+  
   async initPayment(paymentDetails: any): Promise<any> {
     const url = 'https://api.preprod.konnect.network/api/v2/payments/init-payment';
     const headers = {
