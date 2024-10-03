@@ -30,16 +30,7 @@ export class ProductsService {
 
     return products;
   }
-  async finNewest(): Promise<ProductDocument[]> {
-    const products = await this.productModel
-      .find({})
-      .sort({ createdAt: -1 })
-      .limit(3);
-
-    if (!products.length) throw new NotFoundException('No products found.');
-
-    return products;
-  }
+ 
 
   async findMany(
     keyword?: string,
@@ -113,6 +104,8 @@ const catx = category ? { category: { $regex: category, $options: 'i' } } : {};
     product.category = category;
     product.countInStock = countInStock;
     product.isTopRelated  = isTopRelated ; 
+    product.tags  = tags ; 
+
     const updatedProduct = await product.save();
     return updatedProduct;
   }
@@ -167,7 +160,16 @@ const catx = category ? { category: { $regex: category, $options: 'i' } } : {};
 
     await product.remove();
   }
-
+  async incrementViewCount(productId: string): Promise<Product> {
+    return this.productModel.findByIdAndUpdate(
+      productId,
+      { $inc: { viewCount: 1 } }, 
+      { new: true }
+    );
+  }
+  async getProductById(productId: string): Promise<Product> {
+    return this.productModel.findById(productId).exec();
+  }
   async deleteMany(): Promise<void> {
     await this.productModel.deleteMany({});
   }

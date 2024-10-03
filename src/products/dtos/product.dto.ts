@@ -22,5 +22,7 @@ export class ProductDto {
   countInStock: number;
   @IsBoolean()
   isTopRelated: boolean;
-
+  @IsArray()  // Add this line for tags
+  @IsString({ each: true })  // Validate each tag as a string
+  tags: string[];
 }

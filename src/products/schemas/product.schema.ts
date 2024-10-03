@@ -35,7 +35,7 @@ export class Product {
   @Prop({ required: true })
   category: string[]; // Changed to array of strings
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   tags: string[]; // Changed to array of strings
 
   @Prop({ require: true })
@@ -70,7 +70,8 @@ export class Product {
   
   @Prop({ required: true, default: () => generateSKU() })
   sku: string;
-
+  @Prop({ required: true, default: 0 })
+  viewCount: number; 
 
 }
 

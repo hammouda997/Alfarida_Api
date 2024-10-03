@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Patch,
+  Post,
   Put,
   UseGuards,
 } from '@nestjs/common';
@@ -20,7 +21,15 @@ import { ProfileDto } from '../dtos/profile.dto';
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
+  @Post(':userId/viewed-products')
+  async addViewedProduct(@Param('userId') userId: string, @Body('productId') productId: string) {
+    return this.usersService.addViewedProduct(userId, productId);
+  }
 
+  @Get(':userId/viewed-products')
+  async getViewedProducts(@Param('userId') userId: string) {
+    return this.usersService.getViewedProducts(userId);
+  }
   @UseGuards(AdminGuard)
   @Get()
   getUsers() {

@@ -11,7 +11,17 @@ import { encryptPassword } from 'src/utils';
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
-
+  async addViewedProduct(userId: string, productId: string): Promise<User> {
+    return this.userModel.findByIdAndUpdate(
+      userId,
+      { $addToSet: { viewedProducts: productId } }, // Use $addToSet to avoid duplicates
+      { new: true }
+    );
+  }
+  async getViewedProducts(userId: string): Promise<string[]> {
+    const user = await this.userModel.findById(userId).select('viewedProducts').exec();
+    return user ? user.viewedProducts : [];
+  }
   async createMany(users: Partial<UserDocument>[]): Promise<UserDocument[]> {
     const createdUsers = await this.userModel.insertMany(users);
 

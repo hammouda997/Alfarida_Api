@@ -22,6 +22,16 @@ import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
+
+  @Post(':productId/view')
+  async incrementViewCount(@Param('productId') productId: string) {
+    return this.productsService.incrementViewCount(productId);
+  }
+
+  @Get(':productId')
+  async getProductById(@Param('productId') productId: string) {
+    return this.productsService.getProductById(productId);
+  }
   @Get('session')
   getCurrentSession(
     @Session() session: any
@@ -38,11 +48,7 @@ export class ProductsController {
   ) {
     return this.productsService.findMany(keyword, pageId , category);
   }
-  
-  @Get('new')
-  getNewProducts() {
-    return this.productsService.finNewest();
-  }
+ 
   @Get('categories')
   async getCategories() {
     const categories = await this.productsService.findAllCategories();
