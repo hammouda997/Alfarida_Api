@@ -12,6 +12,7 @@ import { AppController } from './controllers/app.controller';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 import { AppService } from './services/app.service';
 import { AramexModule } from 'src/aramex/aramex.module';
+import { FeaturedModule } from 'src/featured/featured.module';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { AramexModule } from 'src/aramex/aramex.module';
     CartModule,
     OrderModule,
     CloudinaryModule,
-   
+    FeaturedModule
     // SeedsModule,
   ],
   controllers: [AppController],

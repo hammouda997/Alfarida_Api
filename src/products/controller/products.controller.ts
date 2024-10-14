@@ -26,7 +26,6 @@ export class ProductsController {
   getCurrentSession(
     @Session() session: any
   ) {
-    console.log('Session:', session.user); // Log the session object
     return session;
   }
 
@@ -83,9 +82,6 @@ createProduct(@Body() productData: Partial<ProductDocument>) {
     @Body() { rating, comment }: ReviewDto,
     @Session() session: any
   ) {
-    console.log('Session:', session); // Log the session object
-    console.log('Received rating:', rating); // Log the received rating
-    console.log('Received comment:', comment); // Log the received comment
   
     return this.productsService.createReview(id, session.user, rating, comment);
   }

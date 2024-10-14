@@ -33,10 +33,9 @@ export class Product {
   brand: string;
 
   @Prop({ required: true })
-  category: string[]; // Changed to array of strings
-
+  category: string[]; 
   @Prop({ required: true })
-  tags: string[]; // Changed to array of strings
+  tags: string[]; 
 
   @Prop({ require: true })
   image: string;
@@ -81,17 +80,11 @@ function generateSKU(): string {
   let newSKU: string;
 
   do {
-    // Generate a random 5-digit number
     const randomNumber = Math.floor(Math.random() * 90000) + 10000;
-    
-    // Generate a random 1-digit number
-    const randomDigit = Math.floor(Math.random() * 10);
-
-    // Combine the two parts to form the SKU
+        const randomDigit = Math.floor(Math.random() * 10);
     newSKU = `${randomNumber}-${randomDigit}`;
   } while (generatedSKUs.has(newSKU));
 
-  // Add the new SKU to the set to ensure uniqueness
   generatedSKUs.add(newSKU);
 
   return newSKU;

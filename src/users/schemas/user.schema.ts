@@ -43,28 +43,28 @@ export class User {
   @Prop ({required : false  , unique : true })
   instagram : string ;
 
-  @Prop({ default: null }) // Last login timestamp
+  @Prop({ default: null })
   lastLogin: Date;
-  @Prop({ required: false }) // Preferred delivery time
+  @Prop({ required: false }) 
   preferredDeliveryTime?: string;
-  @Prop({ required: false }) // Account verification status
+  @Prop({ required: false }) 
   isVerified?: boolean;
-  @Prop({ type: Number, default: 0 }) // Total number of reviews
+  @Prop({ type: Number, default: 0 }) 
   totalReviews?: number;
-  @Prop({ type: [Object], default: [] }) // Array of shipping addresses for address book
+  @Prop({ type: [Object], default: [] })
   addressBook?: ShippingDetails[];
 
-  @Prop({ type: [String], default: [] }) // Array of saved payment methods
+  @Prop({ type: [String], default: [] })
   savedPaymentMethods?: string[];
 
-  @Prop({ type: Number, default: 0 }) // Average rating
+  @Prop({ type: Number, default: 0 }) 
   averageRating?: number;
-  @Prop({ default: true }) // Newsletter subscription status
+  @Prop({ default: true }) 
   newsletterSubscription: boolean;
 
-  @Prop({ default: 'active' }) // Account status: active, inactive, banned, etc.
+  @Prop({ default: 'active' }) 
   accountStatus: string;
-  @Prop({ type: [String], default: [] }) // Array of product IDs for viewed products
+  @Prop({ type: [String], default: [] }) 
   viewedProducts: string[];
 
 }

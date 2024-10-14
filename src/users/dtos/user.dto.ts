@@ -13,22 +13,22 @@ export class UserDto {
   firstname: string;
 
   @Expose()
-  lastname: string;//pleasework
+  lastname: string;
 
   @Expose()
-  gender: string; // Gender of the user
+  gender: string; 
 
   @Expose()
-  dateOfBirth: Date; // Date of birth of the user
+  dateOfBirth: Date; 
 
   @Expose()
-  address: string; // Current address of the user
+  address: string; 
 
   @Expose()
-  city: string; // City of residence
+  city: string; 
 
   @Expose()
-  country: string; // Country of residence
+  country: string; 
 
   @Expose()
   postalCode: string;
@@ -48,7 +48,7 @@ export class UserDto {
   instagram: string;
 
   @Expose()
-  orderHistory: string[]; // Assuming you want to expose order IDs
+  orderHistory: string[];
 
   @Expose()
   lastLogin: Date;
@@ -63,7 +63,7 @@ export class UserDto {
   totalReviews?: number;
 
   @Expose()
-  addressBook: any[]; // Assuming you want to expose address book as is
+  addressBook: any[]; 
 
   @Expose()
   savedPaymentMethods: string[];

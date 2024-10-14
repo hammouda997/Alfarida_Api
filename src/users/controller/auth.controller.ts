@@ -42,7 +42,6 @@ export class AuthController {
     const user = await this.usersService.findOne(email) as UserDocument ;
     
     if (!user ) {
-      // Handle the case where user data is incomplete
       throw new NotFoundException('User data is incomplete');
     }
     user.lastLogin = new Date();
