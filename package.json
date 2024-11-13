@@ -45,6 +45,7 @@
     "mongoose": "^6.1.5",
     "multer": "^1.4.5-lts.1",
     "nestjs-command": "^3.1.1",
+    "nodemailer": "^6.9.16",
     "passport": "^0.5.2",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
@@ -101,5 +102,6 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
